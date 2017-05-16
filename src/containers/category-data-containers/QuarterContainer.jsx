@@ -11,10 +11,12 @@ class QuarterContainer extends Component {
 			<div className='quarters'>
 				<div className='pas'>
 					{pas.map((p, index) =>
-						<PaContainer
-							key={index}
-							id={p}
-						/>
+						(
+							<PaContainer
+								key={index}
+								id={p}
+							/>
+						)
 					)}
 				</div>
 			</div>

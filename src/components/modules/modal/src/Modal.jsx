@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ButtonPrimary } from '../../button';
 import { Panel, PanelHeader, PanelBody, PanelFooter, PanelTitle } from '../../panel';
 import cx from 'classnames';
@@ -47,11 +48,11 @@ Modal.defaultProps = {
 };
 
 Modal.propTypes = {
-	title: React.PropTypes.string,
-	footerButtonText: React.PropTypes.string,
-	className: React.PropTypes.string,
-	onSave: React.PropTypes.func,
-	onClose: React.PropTypes.func
+	title: PropTypes.string,
+	footerButtonText: PropTypes.string,
+	className: PropTypes.string,
+	onSave: PropTypes.func,
+	onClose: PropTypes.func
 };
 
 export default Modal;

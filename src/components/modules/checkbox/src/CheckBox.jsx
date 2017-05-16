@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import './style/checkbox.scss';
+import PropTypes from 'prop-types';
 
 class CheckBox extends React.Component {
 	
@@ -57,11 +58,11 @@ class CheckBox extends React.Component {
 }
 
 CheckBox.PropTypes = {
-	checked: React.PropTypes.bool,
-	label: React.PropTypes.string,
-	disabled: React.PropTypes.bool,
-	onChange: React.PropTypes.func,
-	className: React.PropTypes.string
+	checked: PropTypes.bool,
+	label: PropTypes.string,
+	disabled: PropTypes.bool,
+	onChange: PropTypes.func,
+	className: PropTypes.string
 };
 
 export default CheckBox;

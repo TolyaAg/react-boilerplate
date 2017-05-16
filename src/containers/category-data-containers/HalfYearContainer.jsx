@@ -50,12 +50,7 @@ class HalfYearContainer extends Component {
 			<div className='half-year clearfix'>
 				<div className='half-year__year'>
 					<div className='pas'>
-						{pas.map(p =>
-							<PaContainer
-								key={p}
-								id={p}
-							/>
-						)}
+						{pas.map(p => (<PaContainer key={p} id={p}/>))}
 					</div>
 					{/*tests && tests.length > 0 && <div className='half-year__tests'>
 						<div>Тестирование</div>

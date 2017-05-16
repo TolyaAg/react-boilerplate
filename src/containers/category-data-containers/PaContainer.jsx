@@ -149,10 +149,10 @@ class PaContainer extends Component {
 				</div>
 				<div className='calcs'>
 					{calcs.map((c, index) =>
-						<span key={index}>
+						(<span key={index}>
 							<span className='calcs__label'>{c.name}</span>
 							<span className='calcs__value'>{c.value}</span>
-						</span>
+						</span>)
 					)}
 				</div>
 				<Portal nodeId={dom.portalModalId}>

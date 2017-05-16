@@ -1,42 +1,39 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require ('extract-text-webpack-plugin');
-var path = require('path');
-var project = require('./project.config');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const project = require('./project.config');
 
 module.exports = {
     entry: {
         main: './src/index',
-        react: ['react']
+        react: [ 'react' ]
     },
     devtool: 'source-map',
     output: {
         path: project.localPath,
         publicPath: '/',
         filename: 'bundle.js',
-        library: '[name]'   
+        library: '[name]'
     },
     resolve: {
-        modulesDirectories: ['node_modules'],
-        extensions: ['', '.js', '.jsx'],
+        modules: [ 'node_modules' ],
+        extensions: ['.js', '.jsx']
     },
     module: {
-        preLoaders: [
+        rules: [
             {
                 test: /(\.js$)|(\.jsx$)/,
-                loaders: ['eslint'],
-                include: [
-                    path.resolve(__dirname, "js"),
-                ],
-            }
-        ],
-        loaders: [
-            { 
-                test: /\.woff(2)?(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?name=fonts/[name].[ext]&limit=65000&mimetype=application/font-woff" 
+                loaders: [ 'eslint-loader' ],
+                include: [ path.resolve(__dirname, "js") ],
+                enforce: 'pre'
             },
-            { 
-                test: /\.(ttf|eot|svg)(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-                loader: 'file?name=fonts/[name].[ext]&limit=65000'
+            {
+                test: /\.woff(2)?(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader?name=fonts/[name].[ext]&limit=65000&mimetype=application/font-woff"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader?name=fonts/[name].[ext]&limit=65000'
             },
             {
                 test: /\.css$/,
@@ -45,7 +42,7 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('css!sass')
+                loader: ExtractTextPlugin.extract('css-loader!sass-loader')
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -58,27 +55,25 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel',
-                include: path.join(__dirname, 'src'),
+                loader: 'babel-loader',
+                include: path.join(__dirname, 'src')
             }
         ]
     },
 
     plugins: [
-    	new webpack.DefinePlugin({
-	      'process.env': {
-	        'NODE_ENV': '"production"'
-	      }
-	    }),
-        new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': '"production"'
+            }
+        }),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'react',
             filename: 'react.js'
         }),
-        new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
+        new ExtractTextPlugin({ filename: 'style/style.min.css', allChunks: true }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
         new webpack.optimize.UglifyJsPlugin({ mangle: false })
     ]
-}
-
-    
+};

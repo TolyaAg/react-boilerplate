@@ -3,6 +3,7 @@ import Modal from './modules/modal';
 import { TextView, TextAreaView } from './modules/text-label';
 import { AlertDanger } from './modules/alert';
 import InputReal from './modules/input-real';
+import PropTypes from 'prop-types';
 
 class Task extends Component {
 	
@@ -17,8 +18,16 @@ class Task extends Component {
 			const { fields } = this.state;
 			const { header } = this.props;
 			return Object.keys(fields)
-				.filter(k => (k in header) && fields[k])
-				.length === Object.keys(header).length;
+				.filter(k => (k in header) && fields[k])Installation
+		 Hello World
+		 Introducing JSX
+		 Rendering Elements
+		 Components and Props
+		 State and Lifecycle
+		 Handling Events
+		 Conditional Rendering
+
+		 .length === Object.keys(header).length;
 		};*/
 		
 		this._checkFields = () => {
@@ -195,9 +204,9 @@ Task.defaultProps = {
 };
 
 Task.propTypes = {
-	tasksHeader: React.PropTypes.object,
-	title: React.PropTypes.string,
-	footerButtonText: React.PropTypes.string
+	tasksHeader: PropTypes.object,
+	title: PropTypes.string,
+	footerButtonText: PropTypes.string
 };
 
 export default Task;

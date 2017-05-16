@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ButtonDefault, ButtonPrimary } from '../../button';
 import { Panel, PanelHeader, PanelBody, PanelFooter, PanelTitle } from '../../panel';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 import './style/confirm.scss';
 
@@ -66,11 +67,11 @@ Confirm.defaultProps = {
 };
 
 Confirm.propTypes = {
-	headerText: React.PropTypes.string,
-	text: React.PropTypes.string.isRequired,
-	className: React.PropTypes.string,
-	onConfirm: React.PropTypes.func.isRequired,
-	onClose: React.PropTypes.func.isRequired
+	headerText: PropTypes.string,
+	text: PropTypes.string.isRequired,
+	className: PropTypes.string,
+	onConfirm: PropTypes.func.isRequired,
+	onClose: PropTypes.func.isRequired
 };
 
 export default Confirm;

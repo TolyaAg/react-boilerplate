@@ -1,20 +1,22 @@
 import React from 'react';
 import assign from 'lodash/assign';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 
 import './style/text-label.scss';
 
 const TextBase = {
 
 	propTypes: {
-		type: React.PropTypes.string,
-		className: React.PropTypes.string,
-		inputClassName: React.PropTypes.string,
-		focused: React.PropTypes.bool,
-		onChange: React.PropTypes.func,
-		onBlur: React.PropTypes.func,
-		onClick: React.PropTypes.func,
-		isValid: React.PropTypes.func,
-		readOnly: React.PropTypes.bool
+		type: PropTypes.string,
+		className: PropTypes.string,
+		inputClassName: PropTypes.string,
+		focused: PropTypes.bool,
+		onChange: PropTypes.func,
+		onBlur: PropTypes.func,
+		onClick: PropTypes.func,
+		isValid: PropTypes.func,
+		readOnly: PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -88,7 +90,7 @@ const TextBase = {
 	}
 };
 
-const TextView = React.createClass({
+const TextView = createReactClass({
 
 	mixins: [ TextBase ],
 
@@ -134,7 +136,7 @@ const TextView = React.createClass({
 	}
 });
 
-const TextAreaView = React.createClass(assign({}, TextBase, {
+const TextAreaView = createReactClass(assign({}, TextBase, {
 	
 	getInitialState(){
 		const baseObject = TextBase.getInitialState.call(this);
