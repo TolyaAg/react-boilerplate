@@ -9,7 +9,7 @@
     "set-dev": "set NODE_ENV=development",
     "start-dev-server": "npm run set-dev && webpack-dev-server",
     "development": "npm run set-dev && webpack --config webpack.config.js",
-    "production": "npm run set-prod && webpack --config webpack.production.config.js && node pindex.js && npm run set-dev"
+    "production": "npm run set-prod && webpack --config webpack.config.js && node pindex.js && npm run set-dev"
   },
   "dependencies": {
     "babel-polyfill": "^6.13.0",

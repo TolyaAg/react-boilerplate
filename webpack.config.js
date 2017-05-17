@@ -1,15 +1,17 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const project = require('./project.config');
 
 module.exports = {
     entry: {
-        main: ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'],
+        main: NODE_ENV === 'development' ? ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'] : './src/index',
         react: [ 'react' ]
     },
-    devtool: 'source-map',
+    devtool: NODE_ENV === 'development' ? 'source-map' : false,
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: NODE_ENV === 'development' ? path.join(__dirname, 'dist') : project.localPath,
         publicPath: '/',
         filename: 'bundle.js',
         library: '[name]'
@@ -70,9 +72,7 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': '"development"'
-            }
+            NODE_ENV: JSON.stringify(NODE_ENV)
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
@@ -84,4 +84,3 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ]
 };
-    

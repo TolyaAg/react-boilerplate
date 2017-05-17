@@ -155,7 +155,7 @@
         "func-style": [2, "declaration", { "allowArrowFunctions": true }],
         "indent": [0, "tab", { "SwitchCase": 1 }],
         "jsx-quotes": [2, "prefer-single"],
-        "max-len": [2, 128, 4, {
+        "max-len": [2, 512, 4, {
             "ignoreUrls": true,
             "ignoreComments": false,
             "ignorePattern": "^\\s*(const|let|var)\\s+\\w+\\s+\\=\\s+\\/.*\\/(|i|g|m|ig|im|gm|igm);?$"
