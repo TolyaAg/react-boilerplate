@@ -4,15 +4,14 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        main: ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'],
-        react: [ 'react' ]
+        main: './src/index.jsx',
+        react: 'react'
     },
-    devtool: 'eval',
+    devtool: 'cheap-eval-source-map',
     output: {
-        path: path.join(__dirname, 'dist/js'),
+        path: path.join(__dirname, 'dist', 'js'),
         publicPath: '/',
-        filename: 'bundle.js',
-        library: '[name]'
+        filename: 'bundle.js'
     },
     resolve: {
         modules: [ 'node_modules' ],
@@ -38,15 +37,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
+                    use: [ 'css-loader' ]
                 })
             },
 
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
                     use: ['css-loader', 'sass-loader']
                 })
             },
@@ -68,13 +65,23 @@ module.exports = {
     },
 
     devServer: {
-        host: '0.0.0.0',
+        host: 'localhost',
         port: 8080,
         contentBase: path.join(__dirname, 'dist'),
         hot: true,
         compress: true,
         historyApiFallback: true,
-        watchContentBase: true
+        watchContentBase: true,
+        noInfo: false,
+        stats: 'minimal',
+        overlay: {
+            warnings: true,
+            errors: true
+        },
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        }
     },
 
     plugins: [

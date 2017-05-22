@@ -5,8 +5,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/testHelper.js  --recursive",
     "test:watch": "npm run test -- --watch",
-    "dev-server": "webpack-dev-server",
-    "development": "webpack --config webpack.config.js",
+    "dev-server": "webpack-dev-server --open",
+    "development": "webpack --config webpack.config.js --progress --profile --colors",
     "production": "webpack --config webpack.production.config.js && node pindex.js"
   },
   "dependencies": {

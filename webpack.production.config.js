@@ -8,12 +8,11 @@ module.exports = {
         main: './src/index',
         react: [ 'react' ]
     },
-    devtool: 'source-map',
+
     output: {
         path: project.localPath,
         publicPath: '/',
-        filename: 'bundle.js',
-        library: '[name]'
+        filename: 'bundle.js'
     },
     resolve: {
         modules: [ 'node_modules' ],
@@ -39,15 +38,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
+                    use: [ 'css-loader' ]
                 })
             },
 
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
                     use: ['css-loader', 'sass-loader']
                 })
             },
@@ -68,16 +65,6 @@ module.exports = {
         ]
     },
 
-    devServer: {
-        host: '0.0.0.0',
-        port: 8080,
-        contentBase: path.join(__dirname, 'dist'),
-        hot: true,
-        compress: true,
-        historyApiFallback: true,
-        watchContentBase: true
-    },
-
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
@@ -86,16 +73,21 @@ module.exports = {
             filename: 'react.js'
         }),
         new ExtractTextPlugin({ filename: 'style/style.min.css', allChunks: true }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            mangle: {
+                screw_ie8: true,
+                keep_fnames: true
+            },
+            compress: {
+                screw_ie8: true
+            },
+            comments: false
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug:false
+        })
     ]
 };
-
-module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings:     false,
-            drop_console: true,
-            unsafe:       true
-        }
-    })
-);
