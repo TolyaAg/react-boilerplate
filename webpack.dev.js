@@ -1,16 +1,15 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const project = require('./project.config');
 
 module.exports = {
     entry: {
-        main: './src/index',
-        react: [ 'react' ]
+        main: './src/index.jsx',
+        react: 'react'
     },
-
+    devtool: 'source-map',
     output: {
-        path: project.localPath,
+        path: path.join(__dirname, 'dist', 'js'),
         publicPath: '/',
         filename: 'bundle.js'
     },
@@ -23,13 +22,13 @@ module.exports = {
             {
                 test: /(\.js$)|(\.jsx$)/,
                 loader: 'eslint-loader',
-                include: [ path.resolve(__dirname, "src") ],
+                include: [ path.resolve(__dirname, 'src') ],
                 options: { fix: true },
-                enforce: "pre"
+                enforce: 'pre'
             },
             {
                 test: /\.woff(2)?(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
+                loader: 'url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
             },
             {
                 test: /\.(ttf|eot|svg)(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -38,14 +37,14 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    use: [ 'css-loader' ]
+                    use: ['to-string-loader', 'css-loader']
                 })
             },
 
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    use: ['css-loader', 'sass-loader']
+                    use: ['to-string-loader', 'css-loader', 'sass-loader']
                 })
             },
             {
@@ -65,6 +64,26 @@ module.exports = {
         ]
     },
 
+    devServer: {
+        host: 'localhost',
+        port: 8080,
+        contentBase: path.join(__dirname, 'dist'),
+        hot: true,
+        compress: true,
+        historyApiFallback: true,
+        watchContentBase: true,
+        noInfo: false,
+        stats: 'minimal',
+        overlay: {
+            warnings: true,
+            errors: true
+        },
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        }
+    },
+
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
@@ -73,21 +92,6 @@ module.exports = {
             filename: 'react.js'
         }),
         new ExtractTextPlugin({ filename: 'style/style.min.css', allChunks: true }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8: true,
-                keep_fnames: true
-            },
-            compress: {
-                screw_ie8: true
-            },
-            comments: false
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug:false
-        })
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
