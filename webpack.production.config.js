@@ -8,7 +8,7 @@ module.exports = {
         main: './src/index',
         react: [ 'react' ]
     },
-    devtool: null,
+    devtool: 'source-map',
     output: {
         path: project.localPath,
         publicPath: '/',
@@ -23,26 +23,33 @@ module.exports = {
         rules: [
             {
                 test: /(\.js$)|(\.jsx$)/,
-                loaders: [ 'eslint-loader' ],
-                include: [ path.resolve(__dirname, "js") ],
-                enforce: 'pre'
+                loader: 'eslint-loader',
+                include: [ path.resolve(__dirname, "src") ],
+                options: { fix: true },
+                enforce: "pre"
             },
             {
                 test: /\.woff(2)?(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?name=fonts/[name].[ext]&limit=65000&mimetype=application/font-woff"
+                loader: "url-loader?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
             },
             {
                 test: /\.(ttf|eot|svg)(\?)?(\d+)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'file-loader?name=fonts/[name].[ext]&limit=65000'
+                loader: 'file-loader?name=fonts/[name].[ext]'
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("css-loader")
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
 
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ['css-loader', 'sass-loader']
+                })
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -50,7 +57,7 @@ module.exports = {
             },
             {
                 test: /\.jsx$/,
-                loaders: ['react-hot', 'babel-loader'],
+                use: ['react-hot-loader', 'babel-loader'],
                 include: path.join(__dirname, 'src')
             },
             {
@@ -61,19 +68,34 @@ module.exports = {
         ]
     },
 
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080,
+        contentBase: path.join(__dirname, 'dist'),
+        hot: true,
+        compress: true,
+        historyApiFallback: true,
+        watchContentBase: true
+    },
+
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        }),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'react',
             filename: 'react.js'
         }),
         new ExtractTextPlugin({ filename: 'style/style.min.css', allChunks: true }),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
-        new webpack.optimize.UglifyJsPlugin({ mangle: false })
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
+
+module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings:     false,
+            drop_console: true,
+            unsafe:       true
+        }
+    })
+);

@@ -1,17 +1,15 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const project = require('./project.config');
 
 module.exports = {
     entry: {
-        main: NODE_ENV === 'development' ? ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'] : './src/index',
+        main: ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'],
         react: [ 'react' ]
     },
-    devtool: NODE_ENV === 'development' ? 'source-map' : false,
+    devtool: 'eval',
     output: {
-        path: NODE_ENV === 'development' ? path.join(__dirname, 'dist') : project.localPath,
+        path: path.join(__dirname, 'dist/js'),
         publicPath: '/',
         filename: 'bundle.js',
         library: '[name]'
@@ -39,12 +37,18 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("css-loader")
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
 
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ['css-loader', 'sass-loader']
+                })
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -52,7 +56,7 @@ module.exports = {
             },
             {
                 test: /\.jsx$/,
-                loaders: ['react-hot-loader', 'babel-loader'],
+                use: ['react-hot-loader', 'babel-loader'],
                 include: path.join(__dirname, 'src')
             },
             {
@@ -66,14 +70,14 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         port: 8080,
-        contentBase: './dist',
-        hot: true
+        contentBase: path.join(__dirname, 'dist'),
+        hot: true,
+        compress: true,
+        historyApiFallback: true,
+        watchContentBase: true
     },
 
     plugins: [
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV)
-        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
         new webpack.optimize.CommonsChunkPlugin({
