@@ -37,13 +37,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    use: [ 'css-loader' ]
+                    use: ['to-string-loader', 'css-loader']
                 })
             },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    use: ['css-loader', 'sass-loader']
+                    use: ['to-string-loader', 'css-loader', 'sass-loader']
                 })
             },
             {
@@ -80,10 +80,11 @@ module.exports = {
             },
             compress: {
                 screw_ie8: true,
-                warnings: false,
+                warnings: true,
                 drop_console: true
             },
-            comments: false
+            comments: false,
+            sourceMap: true
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
