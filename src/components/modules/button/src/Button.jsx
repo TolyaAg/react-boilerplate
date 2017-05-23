@@ -10,17 +10,17 @@ export const ButtonDefault = ({ text, className, disabled, loading, onClick, chi
 		'button-default--disabled': disabled
 	}, className);
 	return (
-		<button
-			type='button'
-			{...props}
-			disabled={disabled}
-			className={classes}
-			onClick={onClick}
+  <button
+    type='button'
+    {...props}
+    disabled={disabled}
+    className={classes}
+    onClick={onClick}
 		>
-			{loading && <div className='overlay-loading overlay-loading--show' />}
-			{text}
-			{children}
-		</button>
+    {loading && <div className='overlay-loading overlay-loading--show' />}
+    {text}
+    {children}
+  </button>
 	);
 };
 

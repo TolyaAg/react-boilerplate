@@ -1,5 +1,6 @@
 import React from 'react';
 import './style/search-bar.scss';
+import PropTypes from 'prop-types';
 
 class SearchBar extends React.Component {
 	
@@ -33,26 +34,26 @@ class SearchBar extends React.Component {
 		const className = this.props.className ? this.props.className : '';
 		const classNameInput = this.props.classNameInput ? this.props.classNameInput : '';
 		return (
-			<div className={`search-box ${  className}`}>
-				<input
-					onChange={this.handleChange}
-					onKeyDown={this.handleSearch}
-					className={`search-box__search-input ${  classNameInput}`}
-					type='text' value={this.state.value}
-					placeholder='Поиск...'
-				/>
-				<span className='search-box__search-icon icon-search' />
-				{this.props.children}
-			</div>
+  <div className={`search-box ${  className}`}>
+    <input
+      onChange={this.handleChange}
+      onKeyDown={this.handleSearch}
+      className={`search-box__search-input ${  classNameInput}`}
+      type='text' value={this.state.value}
+      placeholder='Поиск...'
+    />
+    <span className='search-box__search-icon icon-search' />
+    {this.props.children}
+  </div>
 		);
 	}
 }
 
 SearchBar.propTypes = {
-	value: React.PropTypes.string,
-	className: React.PropTypes.string,
-	classNameInput: React.PropTypes.string,
-	onSearch: React.PropTypes.func
+	value: PropTypes.string,
+	className: PropTypes.string,
+	classNameInput: PropTypes.string,
+	onSearch: PropTypes.func
 };
 
 export default SearchBar;

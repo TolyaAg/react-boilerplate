@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import AppContainer from './containers/AppContainer';
-import AssessmentContainer from './containers/AssessmentContainer';
+import NotStudyPersonContainer from './containers/NotStudyPersonContainer';
 import { dom } from './config';
 import moment from 'moment';
 moment.locale('ru');
@@ -15,9 +14,9 @@ import 'classlist-polyfill';
 import 'babel-polyfill';
 import './styles';
 
-const middleware = process.env.NODE_ENV === 'production' ?
-  [ thunk ] :
-  [thunk, createLogger()];
+const middleware = process.env.NODE_ENV === 'development' ?
+  [thunk, createLogger()] :
+  [ thunk ];
 
 const store = createStore(
   reducers,
@@ -25,10 +24,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-	<Provider store={store}>
-		<AppContainer>
-			<AssessmentContainer />
-		</AppContainer>
-	</Provider>,
-	document.getElementById(dom.appId)
+  <Provider store={store}>
+    <NotStudyPersonContainer />
+  </Provider>,
+  document.getElementById(dom.appId)
 );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ButtonPrimary } from '../../button';
 import some from 'lodash/some';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 class HeaderCol extends React.Component {
@@ -20,18 +21,18 @@ class HeaderCol extends React.Component {
 
 	render(){
 		return (
-			<th onClick={this.handleSort} className='header-row__col'>
-				<span className='header-row__col-name'>{this.props.name}</span>
-				<span ref='caret' className='caret header-row__caret' />
-			</th>
+  <th onClick={this.handleSort} className='header-row__col'>
+    <span className='header-row__col-name'>{this.props.name}</span>
+    <span ref='caret' className='caret header-row__caret' />
+  </th>
 		);
 	}
 }
 
 HeaderCol.propTypes = {
-	name: React.PropTypes.string,
-	type: React.PropTypes.string,
-	onSort: React.PropTypes.func
+	name: PropTypes.string,
+	type: PropTypes.string,
+	onSort: PropTypes.func
 };
 
 HeaderCol.defaultProps = {
@@ -39,7 +40,7 @@ HeaderCol.defaultProps = {
 };
 
 HeaderCol.contextTypes = {
-	onSort: React.PropTypes.func
+	onSort: PropTypes.func
 };
 
 class Item extends React.Component {
@@ -66,23 +67,23 @@ class Item extends React.Component {
 			'icon-check': this.props.isSelected
 		});
 		return (
-			<tr className='body-row' onClick={this.handleAddItem}>
-				<td>
-					<ButtonPrimary className={classesButton} reverse>
-						<i className={classesIcon} />
-					</ButtonPrimary>
-				</td>
-				{Object.keys(data).map((c, index) => {
+  <tr className='body-row' onClick={this.handleAddItem}>
+    <td>
+      <ButtonPrimary className={classesButton} reverse>
+        <i className={classesIcon} />
+      </ButtonPrimary>
+    </td>
+    {Object.keys(data).map((c, index) => {
 					return <td key={index} className='body-row__col oneline'>{data[c]}</td>;
 				})}
-			</tr>
+  </tr>
 		);
 	}
 }
 
 Item.propTypes = {
-	data: React.PropTypes.object,
-	isSelected: React.PropTypes.bool
+	data: PropTypes.object,
+	isSelected: PropTypes.bool
 };
 
 Item.defaultProps = {
@@ -91,7 +92,7 @@ Item.defaultProps = {
 };
 
 Item.contextTypes = {
-	onAddItem: React.PropTypes.func
+	onAddItem: PropTypes.func
 };
 
 class Items extends React.Component {
@@ -122,31 +123,31 @@ class Items extends React.Component {
 			'overlay-loading--show': this.props.isLoading
 		});
 		return (
-			<div className='items-wrapper'>
-				<table className='items-wrapper__header'>
-					<thead>
-						<tr className='header-row'>{cols}</tr>
-					</thead>
-				</table>
-				<div className='items-wrapper__body'>
-					<table className='items'>
-						<tbody className='items__body'>
-							{items}
-						</tbody>
-					</table>
-				</div>
+  <div className='items-wrapper'>
+    <table className='items-wrapper__header'>
+      <thead>
+        <tr className='header-row'>{cols}</tr>
+      </thead>
+    </table>
+    <div className='items-wrapper__body'>
+      <table className='items'>
+        <tbody className='items__body'>
+          {items}
+        </tbody>
+      </table>
+    </div>
 				
-				<div className={isLoadingClass} />
-			</div>
+    <div className={isLoadingClass} />
+  </div>
 			
 		);
 	}
 }
 
 Items.propTypes = {
-	headerCols: React.PropTypes.array,
-	items: React.PropTypes.array,
-	selectedItems: React.PropTypes.array
+	headerCols: PropTypes.array,
+	items: PropTypes.array,
+	selectedItems: PropTypes.array
 };
 
 Items.defaultProps = {

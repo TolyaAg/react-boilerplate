@@ -153,7 +153,7 @@
         "eol-last": 0,
         "func-names": 1,
         "func-style": [2, "declaration", { "allowArrowFunctions": true }],
-        "indent": [0, "tab", { "SwitchCase": 1 }],
+        "indent": [0, 2, { "SwitchCase": 1 }],
         "jsx-quotes": [2, "prefer-single"],
         "max-len": [2, 512, 4, {
             "ignoreUrls": true,
@@ -189,10 +189,10 @@
         "react/jsx-closing-bracket-location": 2,
         "react/jsx-curly-spacing":  [2, "never"],
         "react/jsx-handler-names": 0,
-        "react/jsx-indent-props": [2, "tab"],
-        "react/jsx-indent": [2, "tab"],
+        "react/jsx-indent-props": [2, 2],
+        "react/jsx-indent": [2, 2],
         "react/jsx-key": 2,
-        "react/jsx-max-props-per-line": [2, {maximum: 3}],
+        "react/jsx-max-props-per-line": [2, {"maximum": 3}],
         "react/jsx-no-bind": [0, {
             "ignoreRefs": true,
             "allowBind": true,

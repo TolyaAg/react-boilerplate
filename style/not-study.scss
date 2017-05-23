@@ -1,0 +1,20 @@
+.container {
+  margin: 0 auto;
+  margin-top: 16px;
+  box-shadow: 2px 2px 10px 0 #979797;
+  max-width: 1000px;
+  position: relative;
+  
+
+  .container_title {
+    background-color: #646464;
+    color: #fff;
+    line-height: 60px;
+    padding-left: 16px;
+  }
+
+  .container_app {
+    padding: 8px;
+    min-height: 620px;
+  }
+}

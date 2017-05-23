@@ -1,25 +1,25 @@
 @import '../../../modal/src/style/modal';
 
 .select-items {
-	@include modal-box;
-	display: block;
-
+  @include modal-box;
+	
+  display: block;
 	position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(91, 91, 91, 0.26);
-    z-index: 100;
-    top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(91, 91, 91, 0.26);
+  z-index: 100;
+  top: 0;
 
 	.select-items__modal-box {
 		@include modal-box__dialog;
 
 		margin: 10px auto;
-	    position: absolute;
-	    top: 10%;
-	    left: 2.5%;
-	    width: 95%;
-	    z-index: 3;
+    position: absolute;
+    top: 10%;
+    left: 2.5%;
+    width: 95%;
+    z-index: 3;
 
 		.select-items__content {
 			@include modal-box__content;
@@ -37,8 +37,8 @@
 				.select-item__error {
 					display: none;
 					float: left;
-			        width: 50%;
-			        text-align: left;
+          width: 50%;
+          text-align: left;
 			        
 					&.select-item__error--show {
 						display: inline-block;
