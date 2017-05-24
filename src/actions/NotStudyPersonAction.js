@@ -2,12 +2,12 @@ import { get } from '../utils/ajax';
 import { url } from '../config';
 import constants from '../constants/NotStudyPersonConstants';
 
-function getError(error){
+const getError = (error) => {
   return {
     type: constants.GET_ERROR,
     error
   };
-}
+};
 
 const getProgrammsSuccess = (programms) =>  {
   return {

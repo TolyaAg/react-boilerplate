@@ -50,7 +50,7 @@ class SelectOneItem extends React.Component {
         maxSelectedItems={1}
         onClose={this.handleCloseModal}
         onSave={this.handleSave}
-        {...this.props.programm}
+        {...this.props.data}
         onChange={this.props.onChange}
       /> : null;
   }

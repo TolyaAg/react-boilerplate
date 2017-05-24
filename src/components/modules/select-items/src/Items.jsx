@@ -64,7 +64,7 @@ class Item extends React.Component {
 		});
 		const classesIcon = cx({
 			'icon-plus': !this.props.isSelected,
-			'icon-check': this.props.isSelected
+			'icon-ok': this.props.isSelected
 		});
 		return (
   <tr className='body-row' onClick={this.handleAddItem}>

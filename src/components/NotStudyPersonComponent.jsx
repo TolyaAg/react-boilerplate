@@ -4,13 +4,6 @@ import React from 'react';
 import SelectOneItem from './modules/select-one-item';
 import SelectMoreItem from './modules/select-more-item';
 
-const data = [
-  { id: '1', data: { fullname: '1' } },
-	{ id: '2', data: { fullname: '2' } },
-	{ id: '3', data: { fullname: '3' } },
-	{ id: '4', data: { fullname: '4' } }
-];
-
 class NotStudyPerson extends React.Component {
 
   constructor(props) {
@@ -33,7 +26,6 @@ class NotStudyPerson extends React.Component {
           <SelectMoreItem
             modalTitle={'Выбрать регион'}
             placeholder={'Выбрать регион'}
-            selectedItem={data}
           />
         </div>
       </div>
