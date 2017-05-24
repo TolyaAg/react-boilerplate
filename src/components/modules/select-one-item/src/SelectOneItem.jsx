@@ -37,6 +37,7 @@ class SelectOneItem extends React.Component {
   }
 
   handleShowModal() {
+    this.props.onChange('', 1);
     this.setState({ isShowModal: true });
   }
 
@@ -47,9 +48,10 @@ class SelectOneItem extends React.Component {
         title={this.props.modalTitle}
         selectedItems={selectedItem}
         maxSelectedItems={1}
-        query={this.props.query}
         onClose={this.handleCloseModal}
         onSave={this.handleSave}
+        {...this.props.programm}
+        onChange={this.props.onChange}
       /> : null;
   }
 
@@ -93,7 +95,7 @@ class SelectOneItem extends React.Component {
 SelectOneItem.propTypes = {
   modalTitle: PropTypes.string,
   placeholder: PropTypes.string,
-  query: PropTypes.string,
+  data: PropTypes.object,
   onSave: PropTypes.func,
   selectedItem: PropTypes.object
 };

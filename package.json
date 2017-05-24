@@ -11,10 +11,6 @@
     "prod": "webpack --env=prod --progress --profile --colors"
   },
   "dependencies": {
-    "@types/node": "^7.0.21",
-    "@types/react": "^15.0.24",
-    "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.40",
     "babel-polyfill": "^6.23.0",
     "camelcase": "^4.1.0",
     "classlist-polyfill": "^1.2.0",

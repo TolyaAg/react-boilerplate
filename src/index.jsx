@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from './reducers';
+import reducer from './reducers/NotStudyPersonReducer';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import NotStudyPersonContainer from './containers/NotStudyPersonContainer';
@@ -19,7 +19,7 @@ const middleware = process.env.NODE_ENV === 'development' ?
   [ thunk ];
 
 const store = createStore(
-  reducers,
+  reducer,
   applyMiddleware(...middleware)
 );
 

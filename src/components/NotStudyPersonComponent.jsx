@@ -27,6 +27,8 @@ class NotStudyPerson extends React.Component {
           <SelectOneItem
             modalTitle={'Выбрать учебную программу'}
             placeholder={'Выбрать учебную программу'}
+            data={this.props.programms}
+            onChange={this.props.getProgramms}
           />
           <SelectMoreItem
             modalTitle={'Выбрать регион'}
