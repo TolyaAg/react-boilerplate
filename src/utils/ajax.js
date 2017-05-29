@@ -1,6 +1,8 @@
-const AJAX_TIME_OVER = 15000;
-const CACHE_MAX_REQUESTS = 30;
-let cache = {};
+// const AJAX_TIME_OVER = 15000;
+// const CACHE_MAX_REQUESTS = 30;
+// const cache = {};
+
+import axios from 'axios';
 
 function getXmlHttp(){
 	let xmlHttp;
@@ -22,70 +24,79 @@ function getXmlHttp(){
 	return xmlHttp;
 }
 
-function isCacheOverflow(){
-	return Object.keys(cache).length > CACHE_MAX_REQUESTS;
-}
+// function isCacheOverflow(){
+// 	return Object.keys(cache).length > CACHE_MAX_REQUESTS;
+// }
 
-function getCacheRequest(url){
-	if (isCacheOverflow()) {
-		cache = {};
-		return;
-	}
-	return cache[encodeURI(url)];
-}
+// function getCacheRequest(url){
+// 	if (isCacheOverflow()) {
+// 		cache = {};
+// 		return;
+// 	}
+// 	return cache[encodeURI(url)];
+// }
 
-function sendRequest(url, data, isCache, requestType){
-	function prepareUrl(_url, _isCache){
-		return !_isCache ? encodeURI(`${_url}&r=${Math.round(Math.random() * 10000)}`) : encodeURI(_url);
-	}
+// function sendRequest(url, data, isCache, requestType){
+// 	function prepareUrl(_url, _isCache){
+// 		return !_isCache ? encodeURI(`${_url}&r=${Math.round(Math.random() * 10000)}`) : encodeURI(_url);
+// 	}
 
-	const cacheRequest = getCacheRequest(url);
-	if (cacheRequest) return cacheRequest;
-	if (!url) return Promise.reject(Error('Unknown url'));
+//   if (!url) return Promise.reject(Error('Unknown url'));
+// 	const cacheRequest = getCacheRequest(url);
+// 	if (cacheRequest) return cacheRequest;
 
-	const preparedUrl = prepareUrl(url, isCache);
-	const resp = new Promise((resolve, reject) => {
-		const xmlHttp = getXmlHttp();
-		const type = requestType || 'GET';
+// 	const preparedUrl = prepareUrl(url, isCache);
+// 	const resp = new Promise((resolve, reject) => {
+// 		const xmlHttp = getXmlHttp();
+// 		const type = requestType || 'GET';
 
-		xmlHttp.open(type, preparedUrl, true);
-		// xmlHttp.setRequestHeader('Authorization', 'Basic ' + btoa('matveev.s:matveev.s'));
-		xmlHttp.onreadystatechange = () => {
-			if (xmlHttp.readyState === 4) {
-				if (timeout){
-					clearTimeout(timeout);
-				}
+// 		xmlHttp.open(type, preparedUrl, true);
+// 		// xmlHttp.setRequestHeader('Authorization', 'Basic ' + btoa('matveev.s:matveev.s'));
+// 		xmlHttp.onreadystatechange = () => {
+// 			if (xmlHttp.readyState === 4) {
+// 				if (timeout){
+// 					clearTimeout(timeout);
+// 				}
 
-				if (xmlHttp.status === 200){
-					resolve(xmlHttp.responseText);
-				} else {
-					console.log(xmlHttp.status);
-					reject(new Error(xmlHttp.statusText || 'Ajax request error'));
-				}
-			}
-		};
-		xmlHttp.send(data || null);
-		const timeout = setTimeout(() => {
-			xmlHttp.abort();
-			reject(new Error('Ajax request time over'));
-		}, AJAX_TIME_OVER);
-	});
+// 				if (xmlHttp.status === 200){
+// 					resolve(xmlHttp.responseText);
+// 				} else {
+// 					console.log(xmlHttp.status);
+// 					reject(new Error(xmlHttp.statusText || 'Ajax request error'));
+// 				}
+// 			}
+// 		};
+// 		xmlHttp.send(data || null);
+// 		const timeout = setTimeout(() => {
+// 			xmlHttp.abort();
+// 			reject(new Error('Ajax request time over'));
+// 		}, AJAX_TIME_OVER);
+// 	});
 
-	if (isCache) {
-		cache[preparedUrl] = resp;
-	}
+// 	if (isCache) {
+// 		cache[preparedUrl] = resp;
+// 	}
 
-	return resp;
-}
+// 	return resp;
+// }
 
 
-export function get(url, isCache){
-	return sendRequest(url, null, isCache);
-}
+// export function get(url, isCache){
+// 	return sendRequest(url, null, isCache);
+// }
 
-export function post(url, data, isCache){
-	return sendRequest(url, data, isCache, 'POST');
-}
+// export function post(url, data, isCache){
+// 	return sendRequest(url, data, isCache, 'POST');
+// }
+
+export const  getAxios = (_url, data) => {
+  return axios({
+    method: 'get',
+    params: data,
+    url: _url,
+    withCredentials: true
+  });
+};
 
 export function uploadFile(url, file){
 	return new Promise((resolve, reject) => {

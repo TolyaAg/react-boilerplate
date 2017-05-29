@@ -8,9 +8,10 @@
     "test:watch": "npm run test -- --watch",
     "dev-server": "webpack-dev-server --env=dev --progress --profile --colors --open",
     "dev": "webpack --env=dev --progress --profile --colors",
-    "prod": "webpack --env=prod --progress --profile --colors"
+    "prod": "webpack --env=prod --progress --profile --colors && node pindex.js"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "camelcase": "^4.1.0",
     "classlist-polyfill": "^1.2.0",

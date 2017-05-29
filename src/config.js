@@ -3,10 +3,10 @@ import { addServer, getAll } from  './servers';
 const routerId = '6385385939497347608';
 const customBaseUrl = process.env.NODE_ENV === 'production' ? '/custom_web_template.html' : 'http://study.merlion.ru/custom_web_template.html';
 
-addServer({ id: '6423618230641905130', name: 'not_study' })
+addServer({ id: '6423618230641905130', name: 'notStudy' })
 .addActions(
 	[
-    'Programms'
+    'Programms', 'Regions', 'Collabs'
 	]
 );
 
@@ -26,7 +26,7 @@ const url = {
 		if (!('server_name' in inputObj)) return '/';
 		if (!('action_name' in inputObj)) inputObj.action_name = '';
 		const serverId = this.getServerId(inputObj.server_name, inputObj.action_name);
-		const basePath = customBaseUrl.concat('?object_id=').concat(routerId).concat('&server_id='.concat(serverId));
+		const basePath = customBaseUrl.concat('?object_id=').concat(routerId).concat('&server_id=').concat(serverId);
 
 		return basePath.concat(Object.keys(inputObj).map(k => {
 			return '&'.concat(k).concat('=').concat(inputObj[k]);

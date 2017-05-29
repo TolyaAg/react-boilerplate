@@ -9,8 +9,15 @@
   .container_title {
     background-color: #646464;
     color: #fff;
-    line-height: 60px;
+    min-height: 60px;
     padding-left: 16px;
+    position: relative;
+
+    .title {
+      margin-top: -9px;
+      position: absolute;
+      top: 50%;
+    }
   }
 
   .container_app {

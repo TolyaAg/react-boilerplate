@@ -21,13 +21,10 @@ class SelectMoreItem extends React.Component {
     this.setState({ selectedItem: nextProps.selectedItem });
   }
 
-  handleSave(items) {
-    let item = null;
-    if (items.length === 1) {
-      item = items[0];
-    }
+  handleSave(_items) {
+    const items = _items.length === 0 ? null : _items;
     if (this.props.onSave) {
-      this.props.onSave(item);
+      this.props.onSave(items);
     }
     this.handleCloseModal();
   }
@@ -37,19 +34,20 @@ class SelectMoreItem extends React.Component {
   }
 
   handleShowModal() {
+    this.props.onChange();
     this.setState({ isShowModal: true });
   }
 
   getModal() {
-    const selectedItem = this.state.selectedItem ? [ this.state.selectedItem ] : null;
+    const selectedItem = this.state.selectedItem ? this.state.selectedItem : null;
     return this.state.isShowModal ?
       <SelectItems
         title={this.props.modalTitle}
         selectedItems={selectedItem}
-        maxSelectedItems={1}
-        query={this.props.query}
         onClose={this.handleCloseModal}
         onSave={this.handleSave}
+        {...this.props.data}
+        onChange={this.props.onChange}
       /> : null;
   }
 

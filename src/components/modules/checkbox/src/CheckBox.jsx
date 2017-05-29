@@ -4,65 +4,63 @@ import './style/checkbox.scss';
 import PropTypes from 'prop-types';
 
 class CheckBox extends React.Component {
-	
-	constructor(props){
-		super(props);
-		
-		this.handleToggleChecked = this.handleToggleChecked.bind(this);
-		this.state = {
-			checked: props.checked || false
-		};
-	}
-	
-	componentWillReceiveProps(nextProps){
-		const { checked } = this.state;
-		if (checked !== nextProps.checked){
-			this.setState({ checked: nextProps.checked });
-		}
-	}
 
-	handleToggleChecked(e){
-		e.stopPropagation();
-		e.nativeEvent.stopImmediatePropagation();
-		if (this.props.disabled){
-			return;
-		}
-		const newState = !this.state.checked;
-		this.setState({ checked: newState });
-		if (this.props.onChange){
-			this.props.onChange(newState);
-		}
-	}
+  constructor(props) {
+    super(props);
 
-	render() {
-		const classes = cx({
-			'md-checkbox': true
-		}, this.props.className);
+    this.handleToggleChecked = this.handleToggleChecked.bind(this);
+    this.state = {
+      checked: props.checked || false
+    };
+  }
 
-		const checkboxIconClasses = cx({
-			'md-icon': true,
-			'md-icon--disabled': this.props.disabled,
-			'md-icon--checked': this.state.checked
-		});
-		return (
-			<div className={classes} onClick={this.handleToggleChecked}>
-				<div className='md-container'>
-					<div className={checkboxIconClasses} />
-				</div>
-				<div className='md-label'>
-					<span>{this.props.label}</span>
-				</div>
-			</div>
-		);
-	}
+  componentWillReceiveProps(nextProps) {
+    const { checked } = this.state;
+    if (checked !== nextProps.checked) {
+      this.setState({ checked: nextProps.checked });
+    }
+  }
+
+  handleToggleChecked(e) {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    if (this.props.disabled) {
+      return;
+    }
+    if (this.props.onChange) {
+      this.props.onChange(!this.state.checked);
+    }
+  }
+
+  render() {
+    const classes = cx({
+      'md-checkbox': true
+    }, this.props.className);
+
+    const checkboxIconClasses = cx({
+      'md-icon': true,
+      'md-icon--disabled': this.props.disabled,
+      'md-icon--checked': this.state.checked
+    });
+    return (
+      <div className={classes} onClick={this.handleToggleChecked}>
+        <div className='md-container'>
+          <div className={checkboxIconClasses} />
+        </div>
+        <div className='md-label'>
+          <span>{this.props.label}</span>
+        </div>
+      </div>
+    );
+  }
 }
 
 CheckBox.PropTypes = {
-	checked: PropTypes.bool,
-	label: PropTypes.string,
-	disabled: PropTypes.bool,
-	onChange: PropTypes.func,
-	className: PropTypes.string
+  checked: PropTypes.bool,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default CheckBox;

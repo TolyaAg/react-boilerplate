@@ -14,9 +14,7 @@ import 'classlist-polyfill';
 import 'babel-polyfill';
 import './styles';
 
-const middleware = process.env.NODE_ENV === 'development' ?
-  [thunk, createLogger()] :
-  [ thunk ];
+const middleware = [thunk, createLogger()];
 
 const store = createStore(
   reducer,
